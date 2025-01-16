@@ -13,9 +13,9 @@ Moderador::Moderador(string nick, string passw, int idM) : UsuariRegistrat(nomUs
 
 };
 
-void Moderador::modificarText(Text *t){
+void Moderador::modificarText(Text &t){
 
-    string s = t ->obtCont();
+    string s = t.obtCont();
 
-    t->modificar(s);
+    t.modificar(s);
 }

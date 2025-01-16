@@ -89,3 +89,13 @@ bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
     return false;
 }
 
+bool UsuariRegistrat::existeixText(int idTxt){
+    for(int i=0; i<textsPenjats.size(); i++){
+        if(textsPenjats[i].obtId() == idTxt) return true;
+    }
+    return false;
+}
+
+void UsuariRegistrat::modificarText(Text &t)
+{
+}

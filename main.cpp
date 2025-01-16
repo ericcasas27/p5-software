@@ -1,15 +1,14 @@
 #include <iostream>
 
-#include "Grollera.h"
 #include "Moderador.h"
-#include "NoMostrades.h"
-#include "Prauala.h"
 #include "UsuariRegistrat.h"
 #include "TipusPrivacitat.h"
 #include "TipusRelacio.h"
 #include "Text.h"
 
 using namespace std;
+
+map<string, UsuariRegistrat> usuarisApp;
 
 /* DECLARACIÓ DELS MÈTODES */
 void carregarTotesLesEstructures(map<string, UsuariRegistrat> &usuarisApp);
@@ -18,7 +17,7 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp);
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp);
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp);
 void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const map<string, UsuariRegistrat> &usuarisApp);
-vector<Paraula> llegirText();
+
 
 int main() {
     map<string, UsuariRegistrat> usuarisApp;
@@ -45,7 +44,7 @@ int main() {
 }
 
 /* IMPLEMENTACIÓ DELS MÈTODES */
-void carregarTotesLesEstructures(vector<UsuariRegistrat> &usuarisApp) {
+void carregarTotesLesEstructures(map<string, UsuariRegistrat> &usuarisApp) {
     Moderador u1("Jordir", "jordir", 1);
     UsuariRegistrat u2("ElCunyatQueEsVaCremarLesCellesFlamejantLesGambes", "interfeisesSempre", 2);
     UsuariRegistrat u3("MiniCalde", "minimini", 3);
@@ -81,17 +80,17 @@ void carregarTotesLesEstructures(vector<UsuariRegistrat> &usuarisApp) {
     u5.establirRelacioUsuari(u4.obtNom(), TipusRelacio::CONEGUT);
     u5.establirRelacioUsuari(u9.obtNom(), TipusRelacio::SALUDAT);
 
-    usuarisApp.push_back(u1);
-    usuarisApp.push_back(u2);
-    usuarisApp.push_back(u3);
-    usuarisApp.push_back(u4);
-    usuarisApp.push_back(u5);
-    usuarisApp.push_back(u6);
-    usuarisApp.push_back(u7);
-    usuarisApp.push_back(u8);
-    usuarisApp.push_back(u9);
-    usuarisApp.push_back(u10);
-    usuarisApp.push_back(u11);
+    usuarisApp.insert(make_pair(u1.obtNom(), u1));
+    usuarisApp.insert(make_pair(u2.obtNom(), u2));
+    usuarisApp.insert(make_pair(u3.obtNom(), u3));
+    usuarisApp.insert(make_pair(u4.obtNom(), u4));
+    usuarisApp.insert(make_pair(u5.obtNom(), u5));
+    usuarisApp.insert(make_pair(u6.obtNom(), u6));
+    usuarisApp.insert(make_pair(u7.obtNom(), u7));
+    usuarisApp.insert(make_pair(u8.obtNom(), u8));
+    usuarisApp.insert(make_pair(u9.obtNom(), u9));
+    usuarisApp.insert(make_pair(u10.obtNom(), u10));
+    usuarisApp.insert(make_pair(u11.obtNom(), u11));
 
 
     u2.penjarText(t1);
@@ -139,29 +138,15 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
 }
 
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //
-    cout << "A qui vols enviar un missatge?" << endl;
-    cout << "L'aplicació té aquests usuaris:  ";
-    map<string, UsuariRegistrat>::const_iterator itePers = usuarisApp.begin();
-    while (itePers!=usuarisApp.end()) {
-        cout << itePers->first << ", ";
-        itePers++;
-    } cout << endl;
-    string us; cin>>us;
-    map<string, UsuariRegistrat>::iterator itePersMissatge = usuarisApp.find(us);
-    if (itePersMissatge==usuarisApp.end()) cout << "Aquest usuari no existeix" << endl;
-    else {
-        vector<Paraula> seq = llegirText();
-        MissatgePrivat m(apuntadorActual->first, itePersMissatge->first,true,seq);//cal construir el missatge
-        apuntadorActual->second.enviaMissatgePrivat(itePersMissatge->first,m);
-        itePersMissatge->second.repMissatgePrivat(apuntadorActual->first,m);
 
-    }
+
     
 }
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
 
     if(apuntadorActual->second.obtNom() == "Jordir"){
+
         string nomU;
         cout<<"De quin usuari vols canviar un text ya penjat?" <<endl;
         cin>> nomU;
@@ -172,9 +157,12 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
 
         map<string, UsuariRegistrat>::iterator iteU = usuarisApp.find(nomU);
         if(iteU != usuarisApp.end()){
-            Text t = iteU->second.obtText(idTxt) ;
-            if(!t.buit()){
-                apuntadorActual->second.modificarText(&t); // modifica el text t
+            
+
+            if(iteU->second.existeixText(idTxt)){
+        
+                Text t = iteU->second.obtText(idTxt);
+                //apuntadorActual->second.modificarText(t); // modifica el text t 
                 iteU->second.actualitzarText(t); // actualitza el t a usuari
             
             } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;
@@ -219,32 +207,4 @@ void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const 
         }
 
     }
-}
-
-vector<Paraula> llegirText() {
-    vector<Paraula> res;
-    cout << "Escriu el text. Final: '-final' " << endl;
-    string seq; cin>>seq;
-    while (seq!="-final") {
-        cout << "Tipus de paraula? (g=GROLLERA, n=NOMOSTRADA, pr=PRAUALA, t=TALQUAL)" <<endl;
-        string tipus; cin>> tipus;
-        if (tipus=="g") {
-            Grollera g(seq);
-            res.push_back(g);
-        }
-        else if (tipus=="n") {
-            NoMostrades nm(seq);
-            res.push_back(nm);
-        }
-        else if (tipus=="pr") {
-            Prauala p(seq);
-            res.push_back(p);
-        }
-        else { //tal qual o altra
-            Paraula p(seq);
-            res.push_back(p);
-        }
-        cin>>seq;
-    }
-    return res;
 }

@@ -9,9 +9,12 @@
 
 
 class Moderador : public UsuariRegistrat{
-    Moderador(string nick, string passw, int idM);
+    public:
+        Moderador(string nick, string passw, int idM);
 
-    void modificarText(Text *t);
+        void modificarText(Text &t) override;
+
+
 };
 
 

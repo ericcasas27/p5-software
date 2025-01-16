@@ -25,6 +25,9 @@ public:
     void actualitzarText(Text t);
     void enviaMissatgePrivat(string u, MissatgePrivat m); //pre: s'ha comprovat q es pugui enviar el missatge
     void repMissatgePrivat(string u, MissatgePrivat m);
+    bool existeixText(int idTxt);
+
+    virtual void modificarText(Text &t);
 protected:
     string nomUsuari;//considerarem que és únic
     int id;

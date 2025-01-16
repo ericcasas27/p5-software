@@ -12,14 +12,14 @@ using namespace std;
 
 class Text {
     public:
-
+        Text();
         Text(int idT,string cont);
 
         string obtCont();
         int obtId();
 
         void modificar(string s);
-
+        bool buit()const;
     protected:
 
         string contingut;

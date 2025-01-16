@@ -62,6 +62,8 @@ Text UsuariRegistrat::obtText(int idT){
     for(int i=0; i<textsPenjats.size(); i++){
         if( textsPenjats[i].obtId() == idT ) return textsPenjats[i];
     }
+    Text ttt;
+    return ttt;
 
 }
 

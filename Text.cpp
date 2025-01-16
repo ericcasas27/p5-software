@@ -4,6 +4,11 @@
 
 #include "Text.h"
 
+Text::Text() {
+    id=-1;
+    contingut="";
+}
+
 Text::Text(int idT, string cont){
     id= idT;
     contingut = cont;
@@ -21,3 +26,6 @@ void Text::modificar(string s){
     contingut = s;
 }
 
+bool Text::buit() const {
+    return contingut=="" && id==-1;
+}

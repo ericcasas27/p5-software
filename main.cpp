@@ -162,7 +162,6 @@ void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
 
     if(apuntadorActual->second.obtNom() == "Jordir"){
-
         string nomU;
         cout<<"De quin usuari vols canviar un text ya penjat?" <<endl;
         cin>> nomU;
@@ -172,9 +171,9 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
         cin>> idTxt;
 
         map<string, UsuariRegistrat>::iterator iteU = usuarisApp.find(nomU);
-        if(iteU != NULL){
-            if(Text t = iteU->second.obtText(idTxt) != NULL){
-
+        if(iteU != usuarisApp.end()){
+            Text t = iteU->second.obtText(idTxt) ;
+            if(!t.buit()){
                 apuntadorActual->second.modificarText(&t); // modifica el text t
                 iteU->second.actualitzarText(t); // actualitza el t a usuari
             

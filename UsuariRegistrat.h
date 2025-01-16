@@ -27,6 +27,7 @@ protected:
     map <TipusRelacio, vector<string>> relacions;
     vector<string> bloquejats;
     map<string, vector<MissatgePrivat>> missatges;
+    bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const;
 };
 
 

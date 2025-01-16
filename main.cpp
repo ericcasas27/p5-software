@@ -1,7 +1,9 @@
 #include <iostream>
 #include <sstream>
 
+#include "Grollera.h"
 #include "Moderador.h"
+#include "NoMostrades.h"
 #include "UsuariRegistrat.h"
 #include "TipusPrivacitat.h"
 #include "TipusRelacio.h"
@@ -108,7 +110,7 @@ void menuOpcions(string nomUsuari, map<string, UsuariRegistrat> &usuarisApp) {
     map<string, UsuariRegistrat>::iterator apuntadorActual = usuarisApp.find(nomUsuari); //ja s'ha comprovat previament
     bool continuar = true;
     int opcio = 0;
-    cout << "\t* Menú: *" << endl <<
+    cerr << "\t* Menú: *" << endl <<
                 "-->  enviar un missatge privat (1) " << endl <<
                 "--> modificar text penjat per un usuari (2) " << endl <<
                 "--> canviar la relació amb un usuari (3) "<<endl <<
@@ -144,12 +146,15 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
 }
 
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //
-
-    cout<< "Aqui vols enviar un missatge privat? " << endl;
+    cerr << "**************************" << endl;
+    cerr << "* ENVIAR MISSATGE PRIVAT *"<< endl;
+    cerr << "*          ┏(-_-)┛       * "<< endl;
+    cerr << "**************************" << endl;
+    cerr<< "A qui vols enviar un missatge privat? " << endl;
     string nomUsuari;
     cin>>nomUsuari;
 
-    cout << "Quin missatge li vols enviar?"<<endl;
+    cerr << "Quin missatge vols enviar a" << nomUsuari << "?"<<endl;
     string miss;
     cin.ignore(); //Ignorar el caracter \n residual
     getline(cin,miss);
@@ -157,10 +162,22 @@ void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual
     vector<Paraula> missatgeP;
     string paraula;
     istringstream stream(miss); 
-
+    int n=1;
     while (stream >> paraula) {
-        Paraula p(paraula);
-        missatgeP.push_back(p);
+        if (n%3==0) {
+            Grollera g(paraula);
+            missatgeP.push_back(g);
+        }
+        if (n%7==0) {
+            NoMostrades n(paraula);
+            missatgeP.push_back(n);
+        }
+        else {
+            Paraula p(paraula);
+            missatgeP.push_back(p);
+        }
+
+        n++;
     }
 
     map<string, UsuariRegistrat>::iterator receptor = usuarisApp.find(nomUsuari);
@@ -173,11 +190,14 @@ void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual
         receptor->second.repMissatgePrivat(apuntadorActual->second.obtNom(),mp);
     }
     
-    cout << "Missatge enviat"<<endl;
+    cout << "Missatge enviat correctament"<<endl;
 }
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
-
+    cerr << "*************************" << endl;
+    cerr << "* MODIFICAR TEXT PENJAT *"<< endl;
+    cerr << "*         ┏(-_-)┛       * "<< endl;
+    cerr << "*************************" << endl;
     try{
         Moderador *mod = dynamic_cast<Moderador*>(&apuntadorActual->second);
         
@@ -221,11 +241,11 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
 }
 
 void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const map<string, UsuariRegistrat> &usuarisApp) {
-    cout << "**********************" << endl;
-    cout << "* CANVIAR LA RELACIÓ *"<< endl;
-    cout << "*       ┏(-_-)┛      * "<< endl;
-    cout << "**********************" << endl;
-    cout << "Entra el nom de l'usuari que vols canviar la relació: " << endl;
+    cerr << "**********************" << endl;
+    cerr << "* CANVIAR LA RELACIÓ *"<< endl;
+    cerr << "*       ┏(-_-)┛      * "<< endl;
+    cerr << "**********************" << endl;
+    cerr << "Entra el nom de l'usuari que vols canviar la relació: " << endl;
     string nick; cin>> nick;
     map<string, UsuariRegistrat>::const_iterator iteAltra = usuarisApp.find(nick);
 
@@ -233,8 +253,8 @@ void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const 
         cout << "No s'ha trobat aquest usuari" << endl;
     }
     else {
-        cout << "Tria la nova relació amb l'usuari " << iteAltra->second.obtNom() << endl;
-        cout << "Tria entre: AMIC, CONEGUT O SALUDAT" << endl;
+        cerr << "Tria la nova relació amb l'usuari " << iteAltra->second.obtNom() << endl;
+        cerr << "Tria entre: AMIC, CONEGUT O SALUDAT" << endl;
         string relacio; cin>> relacio;
         TipusRelacio t; bool b=true;
         if (relacio=="SALUDAT") {
@@ -252,7 +272,7 @@ void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const 
         }
         if(b) {
             apuntadorActual->second.establirRelacioUsuari(iteAltra->second.obtNom(), t);
-            cout << "Ara ja sou " << relacio << endl;
+            cout << "Ara ja ets " << relacio << " d'en " << iteAltra->second.obtNom()<<endl;
         }
 
     }

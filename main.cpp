@@ -38,6 +38,7 @@ int main() {
     }
     if(!b) {
         cout << "Has iniciat sessió correctament (◕‿◕)" << endl;
+        cout << "Usuari " << nomUsuariPrincipal << endl;
         menuOpcions(nomUsuariPrincipal, usuarisApp);
     }
 
@@ -121,7 +122,7 @@ void menuOpcions(string nomUsuari, map<string, UsuariRegistrat> &usuarisApp) {
         else if(opcio == 3)
             canviRelacio(apuntadorActual, usuarisApp);
         else cout << "Aquesta opció és incorrecta. " << endl;
-        cout << "\t* Menú: *" << endl <<
+        cerr << "\t* Menú: *" << endl <<
                 "-->  enviar un missatge privat (1) " << endl <<
                 "--> modificar text penjat per un usuari (2) " << endl <<
                 "--> canviar la relació amb un usuari (3) "<<endl <<
@@ -132,13 +133,14 @@ void menuOpcions(string nomUsuari, map<string, UsuariRegistrat> &usuarisApp) {
 }
 
 string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
-    cout << " Si us plau, introdueixi el seu nom d'usuari (◕ᗜ◕)" << endl;
+    cerr << " Si us plau, introdueixi el seu nom d'usuari (◕ᗜ◕)" << endl;
     string nomUsuari; cin >> nomUsuari;
-    cout << " Si us plau, introdueixi la seva contrassenya ( ͡°ᴥ͡°)" << endl;
+    cerr << " Si us plau, introdueixi la seva contrassenya ( ͡°ᴥ͡°)" << endl;
     string passw; cin>> passw;
     map<string, UsuariRegistrat>::iterator iteU = usuarisApp.find(nomUsuari);
     if(iteU==usuarisApp.end()) return "";
-    else return nomUsuari;
+    if (iteU->second.comparaContrassenya(passw)) return nomUsuari;
+    return "";
 }
 
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //

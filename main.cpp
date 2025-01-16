@@ -157,8 +157,8 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
         if(iteU != NULL){
             if(Text t = iteU->second.obtText(idTxt) != NULL){
 
-                apuntadorActual->second.modificarText(&t); // modifica el text t 
-                iteU->second.actualitzartext(t); // actualitza el t a usuari
+                apuntadorActual->second.modificarText(&t); // modifica el text t
+                iteU->second.actualitzarText(t); // actualitza el t a usuari
             
             } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;
         } else cout << "L'usuari "<< nomU << " no existeix" << endl;

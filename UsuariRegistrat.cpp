@@ -50,6 +50,13 @@ bool UsuariRegistrat::potRebreMissatge(string u) const {
     }
 }
 
+void UsuariRegistrat::enviaMissatgePrivat(string u, MissatgePrivat m) {
+    missatges[u].push_back(m);
+}
+void UsuariRegistrat::repMissatgePrivat(string u, MissatgePrivat m) {
+    missatges[u].push_back(m);
+}
+
 bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
     map<TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(t);
     for(int i=0; i<iteR->second.size(); i++) {
@@ -57,3 +64,4 @@ bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
     }
     return false;
 }
+

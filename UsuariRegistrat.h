@@ -19,6 +19,8 @@ public:
     int obtID() const;
     string obtNom()const;
     bool potRebreMissatge(string u) const;
+    void enviaMissatgePrivat(string u, MissatgePrivat m); //pre: s'ha comprovat q es pugui enviar el missatge
+    void repMissatgePrivat(string u, MissatgePrivat m);
 protected:
     string nomUsuari;//considerarem que és únic
     int id;
@@ -26,7 +28,7 @@ protected:
     TipusPrivacitat t;
     map <TipusRelacio, vector<string>> relacions;
     vector<string> bloquejats;
-    map<string, vector<MissatgePrivat>> missatges;
+    map<string, vector<MissatgePrivat>> missatges; //dins de cada missatge se sap qui l'ha enviat
     bool potComunicarse(string u, TipusRelacio t) const;
 };
 

@@ -145,7 +145,8 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
     return "";
 }
 
-void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //
+void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) {
+    //
     cerr << "**************************" << endl;
     cerr << "* ENVIAR MISSATGE PRIVAT *"<< endl;
     cerr << "*          ┏(-_-)┛       * "<< endl;
@@ -153,44 +154,47 @@ void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual
     cerr<< "A qui vols enviar un missatge privat? " << endl;
     string nomUsuari;
     cin>>nomUsuari;
-
-    cerr << "Quin missatge vols enviar a" << nomUsuari << "?"<<endl;
-    string miss;
-    cin.ignore(); //Ignorar el caracter \n residual
-    getline(cin,miss);
-
-    vector<Paraula> missatgeP;
-    string paraula;
-    istringstream stream(miss); 
-    int n=1;
-    while (stream >> paraula) {
-        if (n%3==0) {
-            Grollera g(paraula);
-            missatgeP.push_back(g);
-        }
-        if (n%7==0) {
-            NoMostrades n(paraula);
-            missatgeP.push_back(n);
-        }
-        else {
-            Paraula p(paraula);
-            missatgeP.push_back(p);
-        }
-
-        n++;
-    }
-
     map<string, UsuariRegistrat>::iterator receptor = usuarisApp.find(nomUsuari);
-    if(receptor->second.usrBloquejat(apuntadorActual->second.obtNom())){
-        cout << "No s'ha pogut enviar el missatge... (Potser estas bloquejat)" <<endl;
+    if (receptor!=usuarisApp.end()){
+        cerr << "Quin missatge vols enviar a" << nomUsuari << "?"<<endl;
+        string miss;
+        cin.ignore(); //Ignorar el caracter \n residual
+        getline(cin,miss);
+
+        vector<Paraula> missatgeP;
+        string paraula;
+        istringstream stream(miss);
+        int n=1;
+        while (stream >> paraula) {
+            if (n%3==0) {
+                Grollera g(paraula);
+                missatgeP.push_back(g);
+            }
+            if (n%7==0) {
+                NoMostrades n(paraula);
+                missatgeP.push_back(n);
+            }
+            else {
+                Paraula p(paraula);
+                missatgeP.push_back(p);
+            }
+
+            n++;
+        }
+
+
+        if(receptor->second.usrBloquejat(apuntadorActual->second.obtNom())){
+            cout << "No s'ha pogut enviar el missatge... (Potser estas bloquejat)" <<endl;
+        }
+        else{
+            MissatgePrivat mp(apuntadorActual->second.obtNom(),nomUsuari, false, missatgeP);
+            apuntadorActual->second.enviaMissatgePrivat(nomUsuari,mp);
+            receptor->second.repMissatgePrivat(apuntadorActual->second.obtNom(),mp);
+        }
+
+        cout << "Missatge enviat correctament"<<endl;
     }
-    else{
-        MissatgePrivat mp(apuntadorActual->second.obtNom(),nomUsuari, false, missatgeP);
-        apuntadorActual->second.enviaMissatgePrivat(nomUsuari,mp);
-        receptor->second.repMissatgePrivat(apuntadorActual->second.obtNom(),mp);
-    }
-    
-    cout << "Missatge enviat correctament"<<endl;
+    else cout << "Aquest usuari no existeix" << endl;
 }
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)

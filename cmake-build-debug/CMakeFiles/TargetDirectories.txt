@@ -1,0 +1,3 @@
+C:/Users/Propietario/Desktop/Crea una carpeta/2024-25/ESII/p5/BIEN/p5-software/cmake-build-debug/CMakeFiles/p5_software.dir
+C:/Users/Propietario/Desktop/Crea una carpeta/2024-25/ESII/p5/BIEN/p5-software/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Propietario/Desktop/Crea una carpeta/2024-25/ESII/p5/BIEN/p5-software/cmake-build-debug/CMakeFiles/rebuild_cache.dir

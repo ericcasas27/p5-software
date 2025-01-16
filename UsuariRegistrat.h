@@ -28,7 +28,7 @@ public:
     void enviaMissatgePrivat(string u, MissatgePrivat m); //pre: s'ha comprovat q es pugui enviar el missatge
     void repMissatgePrivat(string u, MissatgePrivat m);
     bool existeixText(int idTxt);
-
+    virtual void modificarText(Text & text);
     bool usrBloquejat(string usr);
 
   //  virtual void modificarText(Text &t);

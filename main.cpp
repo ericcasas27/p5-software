@@ -198,50 +198,30 @@ void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual
 }
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
-    cerr << "*************************" << endl;
-    cerr << "* MODIFICAR TEXT PENJAT *"<< endl;
-    cerr << "*         ┏(-_-)┛       * "<< endl;
-    cerr << "*************************" << endl;
-    try{
-        Moderador *mod = dynamic_cast<Moderador*>(&apuntadorActual->second);
-        
-        if(mod == NULL) throw exception();
-
+    if (apuntadorActual->first=="Jordir") {
+        cerr << "*************************" << endl;
+        cerr << "* MODIFICAR TEXT PENJAT *"<< endl;
+        cerr << "*         ┏(-_-)┛       * "<< endl;
+        cerr << "*************************" << endl;
         string nomU;
-        cout<<"De quin usuari vols canviar un text ya penjat?" <<endl;
+        cerr<<"De quin usuari vols canviar un text ja penjat?" <<endl;
         cin>> nomU;
-
         int idTxt;
-        cout<< "Quin text del Usuari " << nomU << " vols editar? (id)"<<endl;
+        cerr<< "Quin text del Usuari " << nomU << " vols editar? (id)"<<endl;
         cin>> idTxt;
-
         map<string, UsuariRegistrat>::iterator iteU = usuarisApp.find(nomU);
         if(iteU != usuarisApp.end()){
-            
             UsuariRegistrat &usuari = iteU->second;
-            
-    
             if(usuari.existeixText(idTxt)){
-        
                 Text t = usuari.obtText(idTxt);
-               
-                mod->modificarText(t); // modifica el text t 
-                
-
+                apuntadorActual->second.modificarText(t); // modifica el text t
                 usuari.actualitzarText(t); // actualitza el t a usuari
-
                 cout<< "El text modificat ha quedat de la seguent manera: "<< t.obtCont()<<endl;
-                
-            
-
             } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;
         } else cout << "L'usuari "<< nomU << " no existeix" << endl;
-
-
-    }catch(const exception& e){
-
-        cout<<"Has d'iniciar sessio com a moderador."<<endl;
     }
+    else cout<<"Cal ser moderador per executar aquesta funció."<<endl;
+
 }
 
 void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const map<string, UsuariRegistrat> &usuarisApp) {

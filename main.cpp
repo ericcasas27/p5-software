@@ -1,6 +1,9 @@
 #include <iostream>
 
+#include "Grollera.h"
 #include "Moderador.h"
+#include "NoMostrades.h"
+#include "Prauala.h"
 #include "UsuariRegistrat.h"
 #include "TipusPrivacitat.h"
 #include "TipusRelacio.h"
@@ -15,7 +18,7 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp);
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp);
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp);
 void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const map<string, UsuariRegistrat> &usuarisApp);
-
+vector<Paraula> llegirText();
 
 int main() {
     map<string, UsuariRegistrat> usuarisApp;
@@ -136,8 +139,23 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
 }
 
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //
+    cout << "A qui vols enviar un missatge?" << endl;
+    cout << "L'aplicació té aquests usuaris:  ";
+    map<string, UsuariRegistrat>::const_iterator itePers = usuarisApp.begin();
+    while (itePers!=usuarisApp.end()) {
+        cout << itePers->first << ", ";
+        itePers++;
+    } cout << endl;
+    string us; cin>>us;
+    map<string, UsuariRegistrat>::iterator itePersMissatge = usuarisApp.find(us);
+    if (itePersMissatge==usuarisApp.end()) cout << "Aquest usuari no existeix" << endl;
+    else {
+        vector<Paraula> seq = llegirText();
+        MissatgePrivat m(apuntadorActual->first, itePersMissatge->first,true,seq);//cal construir el missatge
+        apuntadorActual->second.enviaMissatgePrivat(itePersMissatge->first,m);
+        itePersMissatge->second.repMissatgePrivat(apuntadorActual->first,m);
 
-
+    }
     
 }
 
@@ -202,4 +220,32 @@ void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const 
         }
 
     }
+}
+
+vector<Paraula> llegirText() {
+    vector<Paraula> res;
+    cout << "Escriu el text. Final: '-final' " << endl;
+    string seq; cin>>seq;
+    while (seq!="-final") {
+        cout << "Tipus de paraula? (g=GROLLERA, n=NOMOSTRADA, pr=PRAUALA, t=TALQUAL)" <<endl;
+        string tipus; cin>> tipus;
+        if (tipus=="g") {
+            Grollera g(seq);
+            res.push_back(g);
+        }
+        else if (tipus=="n") {
+            NoMostrades nm(seq);
+            res.push_back(nm);
+        }
+        else if (tipus=="pr") {
+            Prauala p(seq);
+            res.push_back(p);
+        }
+        else { //tal qual o altra
+            Paraula p(seq);
+            res.push_back(p);
+        }
+        cin>>seq;
+    }
+    return res;
 }

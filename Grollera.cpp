@@ -3,6 +3,9 @@
 //
 
 #include "Grollera.h"
+Grollera::Grollera(string s) {
+  sequencia=s;
+}
 
 string contingut()const{
   random_device rd;

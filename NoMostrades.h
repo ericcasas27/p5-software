@@ -11,6 +11,7 @@
 
 class NoMostrades : public Paraula{
 public:
+    NoMostrades(string s);
     string contingut() const;
 
 };

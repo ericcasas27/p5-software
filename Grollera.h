@@ -10,6 +10,8 @@ const vector<string> paraulesGrolleres = {"carallot", "malparit", "tros de quòn
 
 
 class Grollera : public Paraula{
+public:
+    Grollera(string s);
     string contingut() const;
 };
 

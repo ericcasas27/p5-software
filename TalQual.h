@@ -8,6 +8,7 @@
 
 class TalQual : public Paraula{
 public:
+    TalQual(string s);
     string contingut() const;
 
 };

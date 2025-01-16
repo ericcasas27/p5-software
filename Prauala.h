@@ -8,6 +8,7 @@ using namespace std;
 
 class Prauala : public Paraula {
 public:
+    Prauala(string s);
     string contingut() const;
 
 };

@@ -13,6 +13,7 @@ Moderador::Moderador(string nick, string passw, int idM) : UsuariRegistrat(nomUs
 
 };
 
+
 void Moderador::modificarText(Text &t){
 
     string s = t.obtCont() + "(Modificat)";

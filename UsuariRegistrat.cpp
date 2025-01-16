@@ -84,7 +84,7 @@ void UsuariRegistrat::enviaMissatgePrivat(string u, MissatgePrivat m) {
         chat->second.push_back(m);
     }
     else{
-        cout << "Inniciar Chat Nou"<<endl;
+        cout << "Iniciar Chat Nou"<<endl;
 
         vector<MissatgePrivat> vMP;
         vMP.push_back(m);
@@ -137,3 +137,11 @@ bool UsuariRegistrat::existeixText(int idTxt){
     }
     return false;
  }
+
+void UsuariRegistrat::modificarText(Text &t){
+
+    string s = t.obtCont() + "(Modificat)";
+    cout << t.obtCont()<<endl;
+    t.modificar(s);
+    cout << t.obtCont()<<endl<<endl;
+}

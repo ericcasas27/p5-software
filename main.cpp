@@ -215,6 +215,7 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
             if(usuari.existeixText(idTxt)){
                 Text t = usuari.obtText(idTxt);
                 apuntadorActual->second.modificarText(t); // modifica el text t
+                cerr<< "Entra el nou "
                 usuari.actualitzarText(t); // actualitza el t a usuari
                 cout<< "El text modificat ha quedat de la seguent manera: "<< t.obtCont()<<endl;
             } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;

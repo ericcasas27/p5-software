@@ -139,9 +139,10 @@ bool UsuariRegistrat::existeixText(int idTxt){
  }
 
 void UsuariRegistrat::modificarText(Text &t){
-
-    string s = t.obtCont() + "(Modificat)";
-    cout << t.obtCont()<<endl;
+    cerr << "Entra el nou text:" <<endl;
+    cout <<"Text original: "<< t.obtCont() <<endl;
+    string s; cin>>s;
+    t.modificar(s);cout << t.obtCont()<<endl;
     t.modificar(s);
     cout << t.obtCont()<<endl<<endl;
 }

@@ -36,14 +36,33 @@ bool UsuariRegistrat::potRebreMissatge(string u) const {
     }
     switch (t) {
         case TipusPrivacitat::AMICS:
-
-
-            case TipusPrivacitat::TOTHOM:
-
+            map<TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(TipusRelacio::AMIC);
+            if(iteR==relacions.end()) return false; //no existeix
+            for(int i=0; i<iteR->second.size(); i++) {
+                if(iteR->second[i]==u) return true;
+            }
+            return false;
+            break;
+        case TipusPrivacitat::TOTHOM:
+            return true;
+            break;
         case TipusPrivacitat::AMICSICONEGUTS:
+            map<TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(TipusRelacio::AMIC);
+            if(iteR!=relacions.end()) {
+                for(int i=0; i<iteR->second.size(); i++) {
+                    if(iteR->second[i]==u) return true;
+                }
+            }
 
+            map<TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(TipusRelacio::CONEGUT);
+            for(int i=0; i<iteR->second.size(); i++) {
+                if(iteR->second[i]==u) return true;
+            }
+            return false;
+            break;
         case TipusPrivacitat::AMICSCONEGUTSISALUDATS:
 
+            break;
     }
     map <TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(t);
     return

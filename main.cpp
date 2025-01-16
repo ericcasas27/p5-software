@@ -4,6 +4,7 @@
 #include "UsuariRegistrat.h"
 #include "TipusPrivacitat.h"
 #include "TipusRelacio.h"
+#include "Text.h"
 
 using namespace std;
 
@@ -14,6 +15,8 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp);
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp);
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp);
 void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const map<string, UsuariRegistrat> &usuarisApp);
+
+
 int main() {
     map<string, UsuariRegistrat> usuarisApp;
     carregarTotesLesEstructures(usuarisApp);
@@ -44,13 +47,18 @@ void carregarTotesLesEstructures(vector<UsuariRegistrat> &usuarisApp) {
     UsuariRegistrat u2("ElCunyatQueEsVaCremarLesCellesFlamejantLesGambes", "interfeisesSempre", 2);
     UsuariRegistrat u3("MiniCalde", "minimini", 3);
     UsuariRegistrat u4("K-SITAS", "edificis", 4);
-    UsuariRegistrat u5("roger", "rogeret", 5);
+    UsuariRegistrat u5("ElCosta", "brava", 5);
     UsuariRegistrat u6("Skippy", "sabeunacosa", 6);
     UsuariRegistrat u7("EmaPuntRajoi", "unPlatEsUnPlat", 7);
     UsuariRegistrat u8("BannanaCat", "mew", 8);
     UsuariRegistrat u9("Entrepaneria boomer", "ramenjol", 9);
     UsuariRegistrat u10("Amadeu Ribes", "túctuc", 10);
     UsuariRegistrat u11("Manuels", "TheBestEuropeanTeachers", 11);
+
+    Text t1(1,"primerText de tots");
+    Text t2(2,"segonText de tots");
+    Text t3(3,"tercerText de tots");
+    Text t4(4,"quartText de tots");
 
 
     u1.bloquejarUsuari(u2.obtNom()); //a ningú li cau bé el cunyat aquest.
@@ -81,6 +89,12 @@ void carregarTotesLesEstructures(vector<UsuariRegistrat> &usuarisApp) {
     usuarisApp.push_back(u9);
     usuarisApp.push_back(u10);
     usuarisApp.push_back(u11);
+
+
+    u2.penjarText(t1);
+    u2.penjarText(t2);
+    u3.penjarText(t3);
+    u3.penjarText(t4);
 
 }
 void menuOpcions(string nomUsuari, map<string, UsuariRegistrat> &usuarisApp) {
@@ -123,9 +137,32 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
 
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //
 
+
+    
 }
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
+
+    if(apuntadorActual->second.obtNom() == "Jordir"){
+
+        string nomU;
+        cout<<"De quin usuari vols canviar un text ya penjat?" <<endl;
+        cin>> nomU;
+
+        int idTxt;
+        cout<< "Quin text del Usuari " << nomU << " vols editar? (id)"<<endl;
+        cin>> idTxt;
+
+        map<string, UsuariRegistrat>::iterator iteU = usuarisApp.find(nomU);
+        if(iteU != NULL){
+            if(Text t = iteU->second.obtText(idTxt) != NULL){
+
+                apuntadorActual->second.modificarText(&t); // modifica el text t 
+                iteU->second.actualitzartext(t); // actualitza el t a usuari
+            
+            } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;
+        } else cout << "L'usuari "<< nomU << " no existeix" << endl;
+    } else cout<<"Has d'iniciar sessio com a moderador."<<endl;
 
 }
 

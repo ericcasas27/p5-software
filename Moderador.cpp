@@ -3,5 +3,19 @@
 //
 
 #include "Moderador.h"
+#include "string.h"
 
-Moderador::Moderador(string nick, string passw, int id) : UsuariRegistrat(nomUsuari, passw, id){};
+Moderador::Moderador(string nick, string passw, int idM) : UsuariRegistrat(nomUsuari, passw, id){
+
+    nomUsuari=nick;
+    password=passw;
+    id=id;
+
+};
+
+void Moderador::modificarText(Text *t){
+
+    string s = t ->obtCont();
+
+    t->modificar(s);
+}

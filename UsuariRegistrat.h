@@ -14,6 +14,8 @@ using namespace std;
 class UsuariRegistrat {
 public:
     UsuariRegistrat(string nomUsuari, string passw, int id); //Constructor amb paràmetres
+    virtual ~UsuariRegistrat() = default;
+
     void establirRelacioUsuari(string nom, TipusRelacio t);
     void bloquejarUsuari(string nom);
     bool comparaContrassenya(string c);
@@ -27,7 +29,7 @@ public:
     void repMissatgePrivat(string u, MissatgePrivat m);
     bool existeixText(int idTxt);
 
-    virtual void modificarText(Text &t);
+  //  virtual void modificarText(Text &t);
 protected:
     string nomUsuari;//considerarem que és únic
     int id;
@@ -36,7 +38,7 @@ protected:
     map <TipusRelacio, vector<string>> relacions;
     vector<string> bloquejats;
 
-     vector<Text> textsPenjats;
+    vector<Text> textsPenjats;
 
     map<string, vector<MissatgePrivat>> missatges; //dins de cada missatge se sap qui l'ha enviat
     bool potComunicarse(string u, TipusRelacio t) const;

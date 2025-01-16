@@ -80,6 +80,12 @@ void carregarTotesLesEstructures(map<string, UsuariRegistrat> &usuarisApp) {
     u5.establirRelacioUsuari(u4.obtNom(), TipusRelacio::CONEGUT);
     u5.establirRelacioUsuari(u9.obtNom(), TipusRelacio::SALUDAT);
 
+    
+    u2.penjarText(t1);
+    u2.penjarText(t2);
+    u3.penjarText(t3);
+    u3.penjarText(t4);
+
     usuarisApp.insert(make_pair(u1.obtNom(), u1));
     usuarisApp.insert(make_pair(u2.obtNom(), u2));
     usuarisApp.insert(make_pair(u3.obtNom(), u3));
@@ -93,10 +99,6 @@ void carregarTotesLesEstructures(map<string, UsuariRegistrat> &usuarisApp) {
     usuarisApp.insert(make_pair(u11.obtNom(), u11));
 
 
-    u2.penjarText(t1);
-    u2.penjarText(t2);
-    u3.penjarText(t3);
-    u3.penjarText(t4);
 
 }
 void menuOpcions(string nomUsuari, map<string, UsuariRegistrat> &usuarisApp) {
@@ -158,13 +160,22 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
         map<string, UsuariRegistrat>::iterator iteU = usuarisApp.find(nomU);
         if(iteU != usuarisApp.end()){
             
-
-            if(iteU->second.existeixText(idTxt)){
+            UsuariRegistrat &usuari = iteU->second;
+            Moderador *mod = dynamic_cast<Moderador*>(&apuntadorActual->second); 
+    
+            if(usuari.existeixText(idTxt)){
         
-                Text t = iteU->second.obtText(idTxt);
-                //apuntadorActual->second.modificarText(t); // modifica el text t 
-                iteU->second.actualitzarText(t); // actualitza el t a usuari
+                Text t = usuari.obtText(idTxt);
+                cout<<"Correcte"<<endl;
+                mod->modificarText(t); // modifica el text t 
+                
+
+                usuari.actualitzarText(t); // actualitza el t a usuari
+
+                cout<< "El text modificat ha quedat de la seguent manera: "<< t.obtCont()<<endl;
+                
             
+
             } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;
         } else cout << "L'usuari "<< nomU << " no existeix" << endl;
     } else cout<<"Has d'iniciar sessio com a moderador."<<endl;

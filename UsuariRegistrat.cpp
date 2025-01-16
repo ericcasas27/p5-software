@@ -55,6 +55,8 @@ bool UsuariRegistrat::potRebreMissatge(string u) const {
 void UsuariRegistrat::penjarText(Text t){
 
     textsPenjats.push_back(t);
+
+    
 }
 
 Text UsuariRegistrat::obtText(int idT){
@@ -83,6 +85,7 @@ void UsuariRegistrat::repMissatgePrivat(string u, MissatgePrivat m) {
 
 bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
     map<TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(t);
+
     for(int i=0; i<iteR->second.size(); i++) {
         if(iteR->second[i]==u) return true;
     }
@@ -90,12 +93,10 @@ bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
 }
 
 bool UsuariRegistrat::existeixText(int idTxt){
-    for(int i=0; i<textsPenjats.size(); i++){
-        if(textsPenjats[i].obtId() == idTxt) return true;
+   
+    for(Text text : textsPenjats){
+        if(text.obtId() == idTxt) return true;
     }
+    
     return false;
-}
-
-void UsuariRegistrat::modificarText(Text &t)
-{
 }

@@ -12,7 +12,7 @@ class Moderador : public UsuariRegistrat{
     public:
         Moderador(string nick, string passw, int idM);
 
-        void modificarText(Text &t) override;
+        void modificarText(Text &t);
 
 
 };

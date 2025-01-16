@@ -29,6 +29,8 @@ public:
     void repMissatgePrivat(string u, MissatgePrivat m);
     bool existeixText(int idTxt);
 
+    bool usrBloquejat(string usr);
+
   //  virtual void modificarText(Text &t);
 protected:
     string nomUsuari;//considerarem que és únic

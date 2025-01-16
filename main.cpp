@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 #include "Moderador.h"
 #include "UsuariRegistrat.h"
@@ -141,8 +142,35 @@ string iniciSessio(map<string, UsuariRegistrat> &usuarisApp) {
 
 void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //
 
+    cout<< "Aqui vols enviar un missatge privat? " << endl;
+    string nomUsuari;
+    cin>>nomUsuari;
 
+    cout << "Quin missatge li vols enviar?"<<endl;
+    string miss;
+    cin.ignore(); //Ignorar el caracter \n residual
+    getline(cin,miss);
+
+    vector<Paraula> missatgeP;
+    string paraula;
+    istringstream stream(miss); 
+
+    while (stream >> paraula) {
+        Paraula p(paraula);
+        missatgeP.push_back(p);
+    }
+
+    map<string, UsuariRegistrat>::iterator receptor = usuarisApp.find(nomUsuari);
+    if(receptor->second.usrBloquejat(apuntadorActual->second.obtNom())){
+        cout << "No s'ha pogut enviar el missatge... (Potser estas bloquejat)" <<endl;
+    }
+    else{
+        MissatgePrivat mp(apuntadorActual->second.obtNom(),nomUsuari, false, missatgeP);
+        apuntadorActual->second.enviaMissatgePrivat(nomUsuari,mp);
+        receptor->second.repMissatgePrivat(apuntadorActual->second.obtNom(),mp);
+    }
     
+    cout << "Missatge enviat"<<endl;
 }
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
@@ -166,7 +194,7 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
             if(usuari.existeixText(idTxt)){
         
                 Text t = usuari.obtText(idTxt);
-                cout<<"Correcte"<<endl;
+               
                 mod->modificarText(t); // modifica el text t 
                 
 

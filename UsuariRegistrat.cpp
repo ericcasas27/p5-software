@@ -77,10 +77,38 @@ void UsuariRegistrat::actualitzarText(Text t){
 
 
 void UsuariRegistrat::enviaMissatgePrivat(string u, MissatgePrivat m) {
-    missatges[u].push_back(m);
+    map<string, vector<MissatgePrivat>>::iterator chat = missatges.find(u);
+
+    if(chat != missatges.end()){
+
+        chat->second.push_back(m);
+    }
+    else{
+        cout << "Inniciar Chat Nou"<<endl;
+
+        vector<MissatgePrivat> vMP;
+        vMP.push_back(m);
+
+        missatges.insert(make_pair(u,vMP));
+
+    }
+     
 }
 void UsuariRegistrat::repMissatgePrivat(string u, MissatgePrivat m) {
-    missatges[u].push_back(m);
+    map<string, vector<MissatgePrivat>>::iterator chat = missatges.find(u);
+
+    if(chat != missatges.end()){
+
+        chat->second.push_back(m);
+    }
+    else{
+       
+        vector<MissatgePrivat> vMP;
+        vMP.push_back(m);
+
+        missatges.insert(make_pair(u,vMP));
+    
+    }
 }
 
 bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
@@ -100,3 +128,12 @@ bool UsuariRegistrat::existeixText(int idTxt){
     
     return false;
 }
+
+ bool UsuariRegistrat::usrBloquejat(string usr){
+
+    for(int i=0; i<bloquejats.size(); i++) {
+        if(bloquejats[i] == usr) return true;
+    
+    }
+    return false;
+ }

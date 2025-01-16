@@ -48,9 +48,8 @@ bool UsuariRegistrat::potRebreMissatge(string u) const {
             return potComunicarse(u,TipusRelacio::AMIC) || potComunicarse(u, TipusRelacio::CONEGUT) || potComunicarse(u, TipusRelacio::SALUDAT);
             break;
     }
-<<<<<<< HEAD
-    map <TipusRelacio, vector<string>>::const_iterator iteR = relacions.find(t);
-    return
+
+    return false;
 }
 
 void UsuariRegistrat::penjarText(Text t){
@@ -71,8 +70,7 @@ void UsuariRegistrat::actualitzarText(Text t){
         if(textsPenjats[i].obtId() == t.obtId()) textsPenjats[i] = t;
     }
 }
-=======
-}
+
 
 void UsuariRegistrat::enviaMissatgePrivat(string u, MissatgePrivat m) {
     missatges[u].push_back(m);
@@ -89,4 +87,3 @@ bool UsuariRegistrat::potComunicarse(string u, TipusRelacio t) const{
     return false;
 }
 
->>>>>>> 7adc4b3cd6bde838a6705a7c74d44cf678d1a809

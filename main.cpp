@@ -102,6 +102,7 @@ void carregarTotesLesEstructures(map<string, UsuariRegistrat> &usuarisApp) {
 
 
 }
+
 void menuOpcions(string nomUsuari, map<string, UsuariRegistrat> &usuarisApp) {
     map<string, UsuariRegistrat>::iterator apuntadorActual = usuarisApp.find(nomUsuari); //ja s'ha comprovat previament
     bool continuar = true;
@@ -175,7 +176,10 @@ void enviarMissatgePrivat(map<string, UsuariRegistrat>::iterator apuntadorActual
 
 void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual, map<string, UsuariRegistrat> &usuarisApp) { //(♥͜♥)
 
-    if(apuntadorActual->second.obtNom() == "Jordir"){
+    try{
+        Moderador *mod = dynamic_cast<Moderador*>(&apuntadorActual->second);
+        
+        if(mod == NULL) throw exception();
 
         string nomU;
         cout<<"De quin usuari vols canviar un text ya penjat?" <<endl;
@@ -189,7 +193,7 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
         if(iteU != usuarisApp.end()){
             
             UsuariRegistrat &usuari = iteU->second;
-            Moderador *mod = dynamic_cast<Moderador*>(&apuntadorActual->second); 
+            
     
             if(usuari.existeixText(idTxt)){
         
@@ -206,8 +210,12 @@ void modificarTextPenjat(map<string, UsuariRegistrat>::iterator apuntadorActual,
 
             } else cout << "Aquest text no existeix per a l'usuari " << nomU <<endl;
         } else cout << "L'usuari "<< nomU << " no existeix" << endl;
-    } else cout<<"Has d'iniciar sessio com a moderador."<<endl;
 
+
+    }catch(const exception& e){
+
+        cout<<"Has d'iniciar sessio com a moderador."<<endl;
+    }
 }
 
 void canviRelacio(map<string, UsuariRegistrat>::iterator apuntadorActual, const map<string, UsuariRegistrat> &usuarisApp) {

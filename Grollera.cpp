@@ -3,11 +3,9 @@
 //
 
 #include "Grollera.h"
-Grollera::Grollera(string s) {
-  sequencia=s;
-}
+Grollera::Grollera(string s) : Paraula(s) {}
 
-string contingut()const{
+string contingut(){
   random_device rd;
   mt19937 gen(rd());
   uniform_int_distribution<> distrib(0, paraulesGrolleres.size()+1);

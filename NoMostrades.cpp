@@ -4,6 +4,9 @@
 
 #include "NoMostrades.h"
 
+NoMostrades::NoMostrades(string s) : Paraula(s){}
+
+
 string NoMostrades::contingut()const{
   return "";
 }

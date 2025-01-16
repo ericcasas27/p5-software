@@ -3,6 +3,7 @@
 //
 
 #include "Prauala.h"
+Prauala::Prauala(string s) : Paraula(s){}
 
 string Prauala::contingut() const{
   string s = sequencia; bool b =false;

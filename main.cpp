@@ -31,8 +31,8 @@ int main() {
         if(intent==3) cout << "Portes 3 intents ja... (｢•-•)｢"<< endl;
         if(intent==4) cout << "Pff... (ᗒᗣᗕ)՞"<< endl;
         if(intent==5) {
-            cout << "Em tens fart (⊙︿⊙). No cal que hi tornis ( ◔ ʖ̯ ◔ )." << endl;
-            break; b=true;
+            cout << "Em tens fart (⊙︿⊙). No cal que hi tornis ( ◔ ʖ̯ ◔ )." << endl; b=true;
+            break;
         }
         nomUsuariPrincipal = iniciSessio(usuarisApp);
     }
